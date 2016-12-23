@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>详情页面</title>
+</head>
+<body>
+<a href="/">返回首页</a>
+<h1 style="background-color:#6495ED;" >欢迎来到详情页面</h1>
+
+
+<h2>标题: {{article.title}}</h2>
+<p> 发表人: {{user.username}}</p>
+<p> 发表时间: {{article.created_at}}</p>
+<h3>内容: {{article.content}}</h3>
+
+--------------------------------------------------------------------------------------------------------------------
+
+<h4>评论</h4>
+{% for comment in comments %}
+
+   <p>评论人: {{comment['user_info']['username']}}</p>
+   <p>评论于: {{comment.created_at}}</p>
+   <p> 评论人ID: {{comment.uid}}</p>
+   <p> 评论内容: {{comment.content}}</p>
+____________________________________________________________________________________________________________________
+
+{% end %}
+  <form action="/api/comment" method="post">
+       <input type="hidden" name="article_id" value={{article.id}}>
+       <input type="text" name="content">
+       <input type="submit" value="发表评论">
+     </form>
+
+
+
+</body>
+</html>
+                                                                                                         
+                

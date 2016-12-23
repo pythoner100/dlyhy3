@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>首页</title>
+</head>
+<body>
+
+<a href="/">首页</a>
+<a href="/article">文章</a>
+<a href="/login">登录</a>
+<a href="/register">注册</a>
+<a href="/modify">修改密码</a>
+<a href="/img">热图</a>
+<h1 style="background-color:#6495ED;" >欢迎来到首页</h1>
+<h2>欢迎回来！{{username}}, 您的id为{{user_id}}</h2>
+{% for article in articles %}
+   <h3><a href="/article/{{article.id}}">标题{{article.id}}：{{article.title}}</a></h3>
+   <div>发表人: {{article['user_info']['username']}}</div>
+   <div>发表于: {{article.created_at}}</div>
+   <p>内容: {{article.content}}</p>
+
+
+
+{% end %}
+
+</body>
+</html>
+
+                                                                
+
+                                                                                                 
+
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片页面</title>
+</head>
+<body>
+<a href="/">首页</a>
+<a href="/article">文章</a>
+<a href="/login">登录</a>
+<a href="/register">注册</a>
+<a href="/modify">修改密码</a>
+<a href="/img">热图</a>
+
+
+
+<h1 style="background-color:blue;" >欢迎来到热图</h1>
+
+<form action="/api/img" method="post">
+
+<label>用户名:</label>
+<input type="text" name="username">
+
+<label>密码:</label>
+<input name="password">
+
+<label>图片网址:</label>
+<input name="img">
+
+ <input type="submit" value="插入">
+
+</form>
+
+{% for yan in yans %}
+<img src="{{yan.img}}"/>
+<div> {{yan.id}}--{{yan.username}}--{{yan.created_at}} </div>
+{% end %}
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
