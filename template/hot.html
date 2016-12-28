@@ -14,24 +14,18 @@
 <a href="/img">图片</a>
 <a href="/hot">热门</a>
 <a href="/hour">24小时</a>
-<h1 style="background-color:#6495ED;" >欢迎来到首页</h1>
-<h2> 欢迎回来！{{username}} 您的id是{{user_id}}</h2>
-
+<h1 style="background-color:blue;" >欢迎来到热门</h1>
 {% for article in articles %}
-   <h3><a href="/article/{{article.id}}">标题{{article.id}}：{{article.title}}</a></h3>
+   <h2>标题：{{article.title}}</h2>
    <div>发表人: {{article['user_info']['username']}}</div>
    <div>发表于: {{article.created_at}}</div>
-   <h4>内容: {{article.content}}</h4>
-
-
+   <h3>内容: {{article.content}}</h3>
+   <h4>评论:({{article.count}})</h4>
+---------------------------------------------
 
 {% end %}
 
+
+
 </body>
 </html>
-
-                                                                
-
-                                                                                                 
-
-

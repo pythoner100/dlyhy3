@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>首页</title>
+</head>
+<body>
+
+<a href="/">首页</a>
+<a href="/article">文章</a>
+<a href="/login">登录</a>
+<a href="/register">注册</a>
+<a href="/modify">修改密码</a>
+<a href="/img">图片</a>
+<a href="/hot">热门</a>
+<a href="/hour">24小时</a>
+<h1 style="background-color:blue;" >欢迎来到24小时</h1>
+{% for article in articles %}
+<h2>标题: {{article.title}}</h2>
+<p> 发表人: {{article['user_info']['username']}}</p>
+<p> 发表时间: {{article.created_at}}</p>
+<h3>内容: {{article.content}}</h3>
+---------------------------------------------------------------
+{% end %}
+
+</body>
+</html>

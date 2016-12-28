@@ -16,10 +16,11 @@
 
 --------------------------------------------------------------------------------------------------------------------
 
-<h4>评论</h4>
+<h3>评论</h3>
+
 {% for comment in comments %}
 
-   <p>评论人: {{comment['user_info']['username']}}</p>
+   <p>评论人: {{comment['user_info'] and comment['user_info']['username']}}</p>
    <p>评论于: {{comment.created_at}}</p>
    <p> 评论人ID: {{comment.uid}}</p>
    <p> 评论内容: {{comment.content}}</p>

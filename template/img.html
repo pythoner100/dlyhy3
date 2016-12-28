@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>图片页面</title>
 </head>
 <body>
@@ -10,11 +10,11 @@
 <a href="/login">登录</a>
 <a href="/register">注册</a>
 <a href="/modify">修改密码</a>
-<a href="/img">热图</a>
+<a href="/img">图片</a>
+<a href="/hot">热门</a>
+<a href="/hour">24小时</a>
 
-
-
-<h1 style="background-color:blue;" >欢迎来到热图</h1>
+<h1 style="background-color:blue;" >欢迎来图片页面</h1>
 
 <form action="/api/img" method="post">
 
@@ -22,7 +22,7 @@
 <input type="text" name="username">
 
 <label>密码:</label>
-<input name="password">
+<input name="password" name="password">
 
 <label>图片网址:</label>
 <input name="img">
@@ -36,17 +36,7 @@
 <div> {{yan.id}}--{{yan.username}}--{{yan.created_at}} </div>
 {% end %}
 
-
-
 </body>
 </html>
-
-
-
-
-
-
-
-
 
 

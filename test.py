@@ -10,6 +10,7 @@ from handler.register import RegisterHandler,ApiRegisterHandler
 from handler.modify import ModifyHandler,ApiModifyHandler
 from handler.comment import ApiCommentHandler,ArticleDetailsHandler
 from handler.img import ImgHandler, ApiImgHandler
+from handler.ho import HotHandler, HourHandler
 
 def make_app():
     basedir = os.path.dirname(__file__)
@@ -30,7 +31,9 @@ def make_app():
         (r"/api/modify", ApiModifyHandler),
         (r"/api/comment", ApiCommentHandler),
         (r"/img", ImgHandler),
-        (r"/apiimg", ApiImgHandler),
+        (r"/api/img", ApiImgHandler),
+        (r"/hot", HotHandler),
+        (r"/hour", HourHandler),
         (r"/article/(\d+)", ArticleDetailsHandler)
     ], **settings)
 
