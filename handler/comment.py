@@ -1,15 +1,15 @@
 #coding:utf8
 import tornado.web
 import torndb
-#from util.database import get_db
+from util.database import get_db
 
 class ApiCommentHandler(tornado.web.RequestHandler):
     def post(self):
         article_id = self.get_argument('article_id')
         content = self.get_argument('content')
         uid = self.get_cookie('uid')
-        #db = get_db
-        db = torndb.Connection(host='localhost', database='hy3', user='root', password='11111111')
+        db = get_db()
+ 
         data = db.insert('insert into comment values (%s, %s, %s, %s, %s)', None, content, None, article_id, uid)
         db.close()
 
@@ -18,8 +18,8 @@ class ApiCommentHandler(tornado.web.RequestHandler):
         
 class ArticleDetailsHandler(tornado.web.RequestHandler):
     def get(self,article_id):
-        #db = get_db()
-        db = torndb.Connection(host = "localhost", database = "hy3", user = "root", password = "11111111")
+        db = get_db()
+        
         article = db.get('select * from article where id=%s',article_id)
         user = db.get('select * from user where id=%s', article.uid)
         comments = db.query("select * from comment where article_id=%s",article_id)

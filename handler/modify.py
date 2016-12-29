@@ -2,6 +2,9 @@
 import tornado.web
 import torndb
 
+from util.database import get_db
+
+
 class ModifyHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("modify.html")
@@ -11,7 +14,7 @@ class ApiModifyHandler(tornado.web.RequestHandler):
         username = self.get_argument("username")
         password = self.get_argument("password")
         password1 = self.get_argument("password1")
-        db = torndb.Connection(host = "localhost", database = "hy3", user = "root", password = "11111111")
+        db = get_db()
         data = db.get("select id from user where username = %s and password = %s", username,password)
         if data is not None:
             data2 = db.update("update user set password=%s where username = %s", password1, username)

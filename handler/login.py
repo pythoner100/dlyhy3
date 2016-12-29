@@ -2,6 +2,9 @@
 import tornado.web
 import torndb
 
+from util.database import get_db
+
+
 class LoginHandler(tornado.web.RequestHandler):
     def get(self):
         username = self.get_cookie("username")
@@ -11,7 +14,7 @@ class ApiLoginHandler(tornado.web.RequestHandler):
     def post(self):
         username = self.get_argument("username")
         password = self.get_argument("password")
-        db = torndb.Connection(host = "localhost",database="hy3",user = "root", password ="11111111",time_zone='+8:00')
+        db = get_db()
         data = db.get("select last_login_at from user where username=%s", username)
         data2 = db.update("update user set last_login_at = NULL where username = %s", username)
         data3 = db.get("select id from user where username=%s and password = %s",username,password)
