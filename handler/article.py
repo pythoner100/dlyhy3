@@ -2,6 +2,7 @@
 import tornado.web
 import torndb
 from util.database import get_db
+from model.article import ArticleModel
 
 
 class ArticleHandler(tornado.web.RequestHandler):
@@ -18,16 +19,17 @@ class ApiArticleHandler(tornado.web.RequestHandler):
         db = get_db()
         user = db.get('select id from user where id=%s', uid)
         if user is None:
-            self.write('登录已经过期，请重新登录')
-            return
-
+           db.close()
+           self.write('登录已经过期，请重新登录')
+           return
+        db.close()
         title = self.get_argument("title")
         content = self.get_argument("content")
-        uid = self.get_cookie("uid")
-        db = get_db()
-        data = db.insert("insert into article value (%s,%s,%s,%s,%s)",None,title,content,None,uid)
-        db.close()
+        article_model = ArticleModel()
+        data =article_model.create_article(title, content, uid)
+        
         self.write('插入成功!文章ID是' + str(data))
+
 
 
 

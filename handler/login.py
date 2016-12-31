@@ -1,9 +1,8 @@
 #coding:utf8
 import tornado.web
 import torndb
-
 from util.database import get_db
-
+from model.user import UserModel
 
 class LoginHandler(tornado.web.RequestHandler):
     def get(self):
@@ -15,9 +14,11 @@ class ApiLoginHandler(tornado.web.RequestHandler):
         username = self.get_argument("username")
         password = self.get_argument("password")
         db = get_db()
-        data = db.get("select last_login_at from user where username=%s", username)
-        data2 = db.update("update user set last_login_at = NULL where username = %s", username)
-        data3 = db.get("select id from user where username=%s and password = %s",username,password)
+        user_model = UserModel()
+        data = user_model.get_user_by_username(username)
+        data2 = user_model.update_user_by_username(username)
+        data3 = user_model.get_user_by_password(username, password)
+       
         db.close()
         if data3 is not None:
             self.set_cookie("username", username)

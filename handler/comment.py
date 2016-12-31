@@ -2,30 +2,33 @@
 import tornado.web
 import torndb
 from util.database import get_db
+from model.comment import CommentModel
+from model.article import ArticleModel
+from model.user import UserModel
 
 class ApiCommentHandler(tornado.web.RequestHandler):
     def post(self):
         article_id = self.get_argument('article_id')
         content = self.get_argument('content')
         uid = self.get_cookie('uid')
-        db = get_db()
- 
-        data = db.insert('insert into comment values (%s, %s, %s, %s, %s)', None, content, None, article_id, uid)
-        db.close()
 
+        comment_model = CommentModel()
+        data = comment_model.create_comment(content, article_id, uid)
         self.redirect('/')
         
         
 class ArticleDetailsHandler(tornado.web.RequestHandler):
     def get(self,article_id):
         db = get_db()
-        
-        article = db.get('select * from article where id=%s',article_id)
+        article_model = ArticleModel()
+        article = article_model.get_article_id(article_id)
         user = db.get('select * from user where id=%s', article.uid)
-        comments = db.query("select * from comment where article_id=%s",article_id)
+        comment_model = CommentModel()
+        comments = comment_model.query_comment_article_id(article_id)
         for comment in comments:
             uid = comment.uid
-            user_info = db.get('select * from user where id=%s',uid)
+            user_model = UserModel()
+            user_info = user_model.get_user_info_by_uid(uid)
             comment['user_info'] = user_info
 
         db.close()
