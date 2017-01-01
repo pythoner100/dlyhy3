@@ -22,7 +22,8 @@ class ArticleDetailsHandler(tornado.web.RequestHandler):
         db = get_db()
         article_model = ArticleModel()
         article = article_model.get_article_id(article_id)
-        user = db.get('select * from user where id=%s', article.uid)
+        user_model = UserModel()
+        user = user_model.get_user_by_id(article.uid)
         comment_model = CommentModel()
         comments = comment_model.query_comment_article_id(article_id)
         for comment in comments:
