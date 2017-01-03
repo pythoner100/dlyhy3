@@ -60,8 +60,19 @@ class UserModel(object):
         return data2
 
     
+    def get_user_by_id(self, article_uid):
+        db = get_db()
+        user = db.get('select * from user where id=%s', article_uid)
+        db.close()
 
+        return user
 
-
-    
+  
+    def get_user_article_by_uid(self, uid):
+        db = get_db()
+        user = db.get('select id from user where id=%s', uid)
+        db.close()
+       
+        return user
+       
  

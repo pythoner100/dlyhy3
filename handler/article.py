@@ -3,6 +3,7 @@ import tornado.web
 import torndb
 from util.database import get_db
 from model.article import ArticleModel
+from model.user import UserModel
 
 
 class ArticleHandler(tornado.web.RequestHandler):
@@ -15,14 +16,14 @@ class ApiArticleHandler(tornado.web.RequestHandler):
         if uid is None or uid == '':
             self.write('你还没登陆')
             return
-
-        db = get_db()
-        user = db.get('select id from user where id=%s', uid)
+                
+        user_model = UserModel()
+        user = user_model.get_user_article_by_uid(uid)
         if user is None:
            db.close()
            self.write('登录已经过期，请重新登录')
            return
-        db.close()
+           db.close()
         title = self.get_argument("title")
         content = self.get_argument("content")
         article_model = ArticleModel()

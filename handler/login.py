@@ -16,7 +16,6 @@ class ApiLoginHandler(tornado.web.RequestHandler):
         db = get_db()
         user_model = UserModel()
         data = user_model.get_user_by_username(username)
-        data2 = user_model.update_user_by_username(username)
         data3 = user_model.get_user_by_password(username, password)
        
         db.close()
@@ -24,6 +23,7 @@ class ApiLoginHandler(tornado.web.RequestHandler):
             self.set_cookie("username", username)
             self.set_cookie("uid", str(data3.id))
             self.set_cookie("id", str(data3.id))
+            data2 = user_model.update_user_by_username(username)
             self.write("登录成功!您上次登录时间是" + str(data['last_login_at']))
         else:
             self.write("登录失败!请输入正确的用户名或密码!")
