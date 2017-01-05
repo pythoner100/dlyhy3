@@ -2,37 +2,33 @@
 import tornado.web
 import torndb
 from util.database import get_db
-from model.comment import CommentModel
-from model.article import ArticleModel
-from model.user import UserModel
+from base import BaseHandler
 
-class ApiCommentHandler(tornado.web.RequestHandler):
+class ApiCommentHandler(BaseHandler):
     def post(self):
+
+        uid = self.get_cookie('uid')
+        if uid is None:
+           self.write('您还没登录')
+           return
+
         article_id = self.get_argument('article_id')
         content = self.get_argument('content')
         uid = self.get_cookie('uid')
-
-        comment_model = CommentModel()
-        data = comment_model.create_comment(content, article_id, uid)
+        data = self.comment_srv.create_comment(content, article_id, uid)
         self.redirect('/')
         
         
-class ArticleDetailsHandler(tornado.web.RequestHandler):
+class ArticleDetailsHandler(BaseHandler):
     def get(self,article_id):
-        db = get_db()
-        article_model = ArticleModel()
-        article = article_model.get_article_id(article_id)
-        user_model = UserModel()
-        user = user_model.get_user_by_id(article.uid)
-        comment_model = CommentModel()
-        comments = comment_model.query_comment_article_id(article_id)
+        article = self.article_srv.get_article_id(article_id)
+        user = self.user_srv.get_user_by_id(article.uid)
+        comments = self.comment_srv.query_comment_article_id(article_id)
         for comment in comments:
             uid = comment.uid
-            user_model = UserModel()
-            user_info = user_model.get_user_info_by_uid(uid)
+            user_info = self.user_srv.get_user_info_by_uid(uid)
             comment['user_info'] = user_info
 
-        db.close()
         self.render('comment.html',comments=comments,article=article, user=user,)
 
                                                                                         

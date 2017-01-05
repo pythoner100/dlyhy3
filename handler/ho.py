@@ -2,21 +2,20 @@
 import tornado.web
 import torndb
 
-from model.article import ArticleModel
+from base import BaseHandler
 
 
-class HourHandler(tornado.web.RequestHandler):
+
+class HourHandler(BaseHandler):
     def get(self):
-        article_model = ArticleModel()
-        articles =article_model.get_hour_articles()
+        articles =self.article_srv.get_hour_articles()
 
         self.render("hour.html",articles = articles)
 
 
-class HotHandler(tornado.web.RequestHandler):
+class HotHandler(BaseHandler):
     def get(self):
-        article_model = ArticleModel()
-        articles = article_model.get_hot_articles()
+        articles =self.article_srv.get_hot_articles()
 
         self.render("hot.html",articles=articles)
 

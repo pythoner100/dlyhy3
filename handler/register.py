@@ -3,18 +3,17 @@ import tornado.web
 import torndb
 
 from util.database import get_db
-from model.user import UserModel
+from base import BaseHandler
 
-class RegisterHandler(tornado.web.RequestHandler):
+class RegisterHandler(BaseHandler):
     def get(self):
         self.render("register.html")
 
-class ApiRegisterHandler(tornado.web.RequestHandler):
+class ApiRegisterHandler(BaseHandler):
     def post(self):
         username = self.get_argument("username")
         password = self.get_argument("password")
-        user_model = UserModel()
-        data = user_model.get_user_register(username, password)
+        data = self.user_srv.get_user_register(username, password)
   
         self.write("注册成功!您的ID是" + str(data))
 
