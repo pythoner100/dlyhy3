@@ -16,7 +16,7 @@
 <a href="/hour">24小时</a>
 <h1 style="background-color:blue;" >欢迎来到热门</h1>
 {% for article in articles %}
-   <h2>标题：{{article.title}}</h2>
+   <h2><a href="/article/{{article.id}}">标题：{{article.title}}</a></h2>
    <div>发表人: {{article['user_info']['username']}}</div>
    <div>发表于: {{article.created_at}}</div>
    <h3>内容: {{article.content}}</h3>

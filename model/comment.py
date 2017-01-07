@@ -12,7 +12,7 @@ class CommentModel(BaseModel):
      
     def query_comment_article_id(self, article_id):
         self.db = get_db()
-        comments = self.db.query("select * from comment where article_id=%s",article_id)
+        comments = self.db.query("select * from comment where article_id=%s order by created_at DESC",article_id)
         self.db.close()
         
         return comments

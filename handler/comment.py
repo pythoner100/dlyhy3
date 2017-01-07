@@ -17,6 +17,8 @@ class ApiCommentHandler(BaseHandler):
         uid = self.get_cookie('uid')
         data = self.comment_srv.create_comment(content, article_id, uid)
         self.redirect('/')
+        self.redirect('/hour')
+        self.redirect('/hot')
         
         
 class ArticleDetailsHandler(BaseHandler):
